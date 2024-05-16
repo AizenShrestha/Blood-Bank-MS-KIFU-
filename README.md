@@ -1,1 +1,1 @@
-# Main-Project
+# Kifu (Blood Bank Management System)
