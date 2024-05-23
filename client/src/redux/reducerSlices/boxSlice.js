@@ -17,15 +17,8 @@ const boxSlice = createSlice({
     changewidth(state) {
       state.width=state.width+5
     },
-    changecolor(state) {
-      if(state.color==='red')
-        {
-      state.color='blue'
-        }
-        else
-        {
-          state.color='red'
-        }
+    changecolor(state,actions) {
+     state.color= actions.payload
     },
     changeshape(state)
     {

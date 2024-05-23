@@ -15,8 +15,7 @@ const Box = () => {
   <Button onClick={()=>dispatch(changewidth())}>+width</Button>
   <Button onClick={()=>dispatch(changeheight())}>+height</Button>
   <Button onClick={()=>dispatch(changeshape())}>Change shape</Button><br/>
-  <Button onClick={()=>dispatch(changecolor())}>Change color</Button><br/>
-  <Input placeholder='Enter shape' />
+  <Input onChange={(e)=>dispatch(changecolor(e.target.value))} placeholder='Enter color' />
     </div>
   )
 }
