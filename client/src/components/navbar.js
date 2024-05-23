@@ -1,13 +1,12 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
-import Logo from "./logo";
 
 const CustomNavbar=()=> {
   return (
     <div className="bg-teal-700">
     <Navbar>
       <NavbarBrand>
-        <Logo/>
+        HI
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
