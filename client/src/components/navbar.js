@@ -1,12 +1,13 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import Image from "next/image";
 
 const CustomNavbar=()=> {
   return (
-    <div className="bg-teal-700">
+    <div className="bg-blue-700">
     <Navbar>
       <NavbarBrand>
-        HI
+      <Image src="/Kifulogo.png" width={110} height={110} alt="logo"/>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>

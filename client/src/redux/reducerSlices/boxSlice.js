@@ -4,35 +4,41 @@ const initialState = {
     color: 'red', 
     width: 50,
     height: 50,
-    borderRadius:'0%'
+    borderRadius: '0%'
 }
 
 const boxSlice = createSlice({
-  name: 'counter',
+  name: 'box',
   initialState: initialState,
   reducers: {
     changeheight(state) {
-      state.height=state.height+5
+      if(state.borderRadius === '50%'){
+        const newHeight = state.height + 5
+        state.width = newHeight
+        state.height = newHeight
+      }else{
+        state.height=state.height+5
+      }
+
     },
     changewidth(state) {
-      state.width=state.width+5
+      if(state.borderRadius === '50%'){
+        const newWidth = state.width + 5
+        state.width = newWidth
+        state.height = newWidth
+      }else{
+        state.width=state.width + 5
+      }
+    },
+    changeshape(state) {
+      state.borderRadius = '50%'
+      state.width=state.height
     },
     changecolor(state,actions) {
-     state.color= actions.payload
+      state.color = actions.payload
     },
-    changeshape(state)
-    {
-      if(state.borderRadius==='0%')
-        {
-           state.borderRadius='50%'
-        }
-        else
-        {
-          state.borderRadius='0%'
-        }
-    }
   },
 })
 
-export const { changeheight, changewidth, changecolor, changeshape } = boxSlice.actions
-export default boxSlice.reducer 
+export const { changeheight, changeshape,changewidth, changecolor } = boxSlice.actions
+export default boxSlice.reducer

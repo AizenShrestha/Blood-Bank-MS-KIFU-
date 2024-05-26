@@ -2,7 +2,7 @@
 import CustomNavbar from "@/components/navbar";
 import {Button,Input} from "@nextui-org/react";
 import Link from "next/link";
-Link
+
 
 const Login = () => {
   return (
