@@ -26,15 +26,19 @@ const port = process.env.PORT
 
 app.post('/Register', async(req, res) => {
  /// User.create({name:"HEHE", addr:"BTM"})
- console.log(req.body.name)
-  User.create(req.body)
-  res.send('ok')
+ const userExist = await User.exists({phonenumber: req.body.phonenumber})
+ if(userExist)
+  {
+    return res.json({msg: "Phone Number has already been registered"})
+  }
+  await User.create(req.body)
+  return res.json({msg: "User registered"})
 })
 
-app.get('/Register', async (req, res) => {
-  const data = await User.find()
-  res.send(data)
-})
+/////app.get('/Register', async (req, res) => {
+ //// const data = await User.find()
+ /// res.send(data)
+////})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
