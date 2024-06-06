@@ -1,10 +1,16 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
 import Image from "next/image";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
 
 const CustomNavbar=()=> {
   return (
-    <div className="bg-blue-700">
+    <div className="bg-gray-900">
     <Navbar>
       <NavbarBrand>
       <Image src="/Kifulogo.png" width={110} height={110} alt="logo"/>
@@ -27,9 +33,6 @@ const CustomNavbar=()=> {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Sign Up</Link>
-        </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="#" variant="flat">
             Login

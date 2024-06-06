@@ -1,84 +1,110 @@
 'use client'
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import {Button,DatePicker,Input, link} from "@nextui-org/react";
-import CustomNavbar from '@/components/navbar';
-import Link from 'next/link';
+import React from "react";
+import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
+import { useFormik } from 'formik';
+import Image from "next/image";
 
-const RegisterForm = () => {
-  const initialValues = {
-    name: '',
-    phonenumber: '',
-    address: '',
-    dob: '',
-  };
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required('Required'),
-    phonenumber: Yup.string().required('Required'),
-    address: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
-    dob: Yup.string().required('Required'),
+export default function Main() {
+  const [selected, setSelected] = React.useState("login");
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      name: '',
+      password: '',
+      address: '',
+    },
+    onSubmit: values => {
+      registerUser(values)
+    },
   });
 
-  const onSubmit = (values) => {
-    console.log('Form data', values);
+
+  const registerUser = async(values)=>{
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
   };
+  const response = await fetch('http://localhost:5000/Register', requestOptions);
 
+  }
   return (
-    <div>
-      <CustomNavbar/>
-    <div className="flex justify-center ">
-      <h1>Register Here</h1>
-        <div className='border border-black m-7 w-72 p-4 '>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-        <Form onSubmit={formik.handleSubmit}>
-          <div>
-            <label htmlFor="name">Name</label>
-            <Input type="text" id="name" name="name" />
-            {formik.errors.name}
-          </div>
-
-          <div>
-            <label htmlFor="number">Phone Number</label>
-            <Input type="number" id="email" name="number" />
-          </div>
-
-          <div>
-            <label htmlFor="address">Address</label>
-            <Input type="address" id="address" name="address" />
-          </div>
-
-          <div>
-            <label htmlFor="dob">Date of Birth</label>
-            <Input type="date" id="dob" name="dob" />
-          </div>
-
-          <div className="margin-bottom: 15px;">
-            <label htmlFor="Bloodtype">Blood Group</label>
-            <br/>
-            <Field as="select" id="Bloodtype" name="Bloodtype">
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-            </Field>
-          </div>
-           <br/>
-          <Button radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg flex justify-start">
-        Register
-      </Button>
-      <br/>
-      <br/>
-        </Form>
-      </Formik>
-      <div class="decoration-solid text-sm">Already have an Account? <Link href="/login">Sign In here</Link></div>
-    </div>
-    </div>
+    <div className="flex flex-col w-full ">
+      <Card className=" flex self-center max-w-full w-[340px] ">
+    <Image src= "/Kifulogo.png" width={100} height={100} alt="logo"/>
+        <CardBody className="overflow-hidden">
+          <Tabs
+            fullWidth
+            size="md"
+            aria-label="Tabs form"
+            selectedKey={selected}
+            onSelectionChange={setSelected}
+          >
+            <Tab key="login" title="Login">
+              <form className="flex flex-col gap-4">
+                <Input isRequired label="Email" placeholder="Enter your email" type="email" />
+                <Input
+                  isRequired
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
+                />
+                <p className="text-center text-small">
+                  Need to create an account?{" "}
+                  <Link size="sm" onPress={() => setSelected("sign-up")}>
+                    Sign up
+                  </Link>
+                </p>
+                <div className="flex gap-2 justify-end">
+                  <Button fullWidth color="primary">
+                    Login
+                  </Button>
+                </div>
+              </form>
+            </Tab>
+ 
+            <Tab key="sign-up" title="Sign up">
+              <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 ">
+              <Input
+               name="name"
+               onChange={formik.handleChange}
+               value={formik.values.name}
+              isRequired label="Full Name" placeholder="Enter your name"  />
+              <Input
+                 name="address"
+                 onChange={formik.handleChange}
+                 value={formik.values.address}
+               isRequired label="Address" placeholder="Enter your address" />
+                <Input
+                  name="email"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                isRequired label="Email" placeholder="Enter your email" type="email" />
+                <Input
+                   name="password"
+                   onChange={formik.handleChange}
+                   value={formik.values.password}
+                  isRequired
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
+                />
+                <p className="text-center text-small">
+                  Already have an account?{" "}
+                  <Link size="sm" onPress={() => setSelected("login")}>
+                    Login
+                  </Link>
+                </p>
+                <div className="flex gap-2 justify-end">
+                  <Button type="submit" fullWidth color="primary">
+                    Sign up
+                  </Button>
+                </div>
+              </form>
+            </Tab>
+          </Tabs>
+        </CardBody>
+      </Card>
     </div>
   );
-};
-
-export default RegisterForm;
+}
