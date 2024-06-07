@@ -1,8 +1,10 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
 import { useFormik } from 'formik';
 import Image from "next/image";
+import './styling.css';
+
 
 export default function Main() {
   const [selected, setSelected] = React.useState("login");
@@ -28,11 +30,13 @@ export default function Main() {
   const response = await fetch('http://localhost:5000/Register', requestOptions);
 
   }
+  const [action,setAction] = useState("Welcome.");
   return (
-    <div className="flex flex-col w-full ">
-      <Card className=" flex self-center max-w-full w-[340px] ">
-    <Image src= "/Kifulogo.png" width={100} height={100} alt="logo"/>
-        <CardBody className="overflow-hidden">
+    <div class="center">
+      <Card className=" flex self-center max-w-full w-[390px] position: absolute; ">
+    <div className='text'>{action}</div>
+    <div className='underline'></div>
+        <CardBody className='container'>
           <Tabs
             fullWidth
             size="md"
@@ -40,7 +44,7 @@ export default function Main() {
             selectedKey={selected}
             onSelectionChange={setSelected}
           >
-            <Tab key="login" title="Login">
+            <Tab onClick={()=>{setAction('Login')}} key="login" title="Login">
               <form className="flex flex-col gap-4">
                 <Input isRequired label="Email" placeholder="Enter your email" type="email" />
                 <Input
@@ -51,19 +55,19 @@ export default function Main() {
                 />
                 <p className="text-center text-small">
                   Need to create an account?{" "}
-                  <Link size="sm" onPress={() => setSelected("sign-up")}>
+                  <Link className='forgot-password' size="sm" onPress={() => setSelected("sign-up")}>
                     Sign up
                   </Link>
                 </p>
                 <div className="flex gap-2 justify-end">
-                  <Button fullWidth color="primary">
+                  <Button fullWidth className="submit">
                     Login
                   </Button>
                 </div>
               </form>
             </Tab>
  
-            <Tab key="sign-up" title="Sign up">
+            <Tab onClick={()=>{setAction('Sign Up')}} key="sign-up" title="Sign up">
               <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 ">
               <Input
                name="name"
@@ -91,12 +95,12 @@ export default function Main() {
                 />
                 <p className="text-center text-small">
                   Already have an account?{" "}
-                  <Link size="sm" onPress={() => setSelected("login")}>
+                  <a className='forgot-password' size="sm" onPress={() => setSelected("login")}>
                     Login
-                  </Link>
+                  </a>
                 </p>
                 <div className="flex gap-2 justify-end">
-                  <Button type="submit" fullWidth color="primary">
+                  <Button type="submit" className="submit">
                     Sign up
                   </Button>
                 </div>
