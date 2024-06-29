@@ -1,1 +1,1 @@
-# Kifu (Blood Bank Management System)
+# KinaMela (Online Grocery Shopping)
